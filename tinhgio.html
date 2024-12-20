@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tính Thời Gian Live</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f7f7f7;
+            color: #333;
+        }
+
+        .container {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background: #f0f8ff;
+            border-left: 4px solid #007bff;
+            font-size: 16px;
+        }
+
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tính Thời Gian Live</h1>
+        <div class="form-group">
+            <label for="timeneed">Tổng Thời Gian Cần Live Trong Tháng:</label>
+            <input type="number" id="timeneed" placeholder="Enter hours">
+        </div>
+        <div class="form-group">
+            <label for="timee">Thời Gian Đã Live:</label>
+            <input type="number" id="timee" placeholder="Enter hours">
+        </div>
+        <div class="form-group">
+            <label for="dayleft">Số Ngày Còn Lại Trong Tháng:</label>
+            <input type="number" id="dayleft" placeholder="Enter days">
+        </div>
+        <button onclick="calculate()">Calculate</button>
+        <div class="result" id="result" style="display: none;"></div>
+    </div>
+
+    <script>
+        function calculate() {
+            try {
+                // Get inputs
+                const timeneed = parseInt(document.getElementById("timeneed").value);
+                const timee = parseInt(document.getElementById("timee").value);
+                const dayleft = parseInt(document.getElementById("dayleft").value);
+
+                // Validation
+                if (isNaN(timeneed) || isNaN(timee) || isNaN(dayleft) || timeneed <= 0 || dayleft < 0) {
+                    alert("Please enter valid numbers!");
+                    return;
+                }
+
+                // Calculation logic
+                const c = 90 - timee;
+                let timeleft = 0;
+                if (dayleft > 0) {
+                    timeleft = (c / dayleft).toFixed(1);
+                }
+
+                // Display result
+                const resultDiv = document.getElementById("result");
+                resultDiv.style.display = "block";
+                resultDiv.innerHTML = `Chị ni cần live <strong>${timeleft}</strong> giờ mỗi ngày còn lại nhe.`;
+            } catch (error) {
+                console.error("An error occurred:", error);
+                alert("Something went wrong! Check the console for details.");
+            }
+        }
+    </script>
+</body>
+</html>
